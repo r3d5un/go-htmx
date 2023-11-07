@@ -11,7 +11,8 @@ func main() {
 	slog.SetDefault(logger)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", home)
+	mux.HandleFunc("/contacts", contacts)
+	mux.Handle("/", http.RedirectHandler("/contacts", http.StatusSeeOther))
 
 	logger.Info("Starting server on :4000")
 	err := http.ListenAndServe(":4000", mux)
